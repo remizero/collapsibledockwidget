@@ -34,14 +34,6 @@ QWidget *AnimatedStackedWidget::addWidget ( QWidget *widget ) {
   return this->insertWidget ( ( ( QStackedLayout * ) this->layout () )->count (), widget );
 }
 
-bool AnimatedStackedWidget::isAnimationEnabled () {
-
-  /*"""
-  Is the transition animation enabled.
-  """*/
-  return this->animationEnabled;
-}
-
 int AnimatedStackedWidget::count () {
   /*"""
   Return the number of widgets in the stack.
@@ -85,12 +77,20 @@ QWidget *AnimatedStackedWidget::insertWidget ( int index, QWidget *widget ) {
   }
   //index = min ( index, this->count () );
   this->widgetList.insert ( index, widget );
-  if ( ( index <= this->currentIndex ) or ( this->currentIndex == -1 ) ) {
+  if ( ( index <= this->currentIndex ) || ( this->currentIndex == -1 ) ) {
 
     this->currentIndex += 1;
   }
   ( ( QStackedLayout * ) this->layout () )->insertWidget ( index, widget );
   return widget;
+}
+
+bool AnimatedStackedWidget::isAnimationEnabled () {
+
+  /*"""
+  Is the transition animation enabled.
+  """*/
+  return this->animationEnabled;
 }
 
 void AnimatedStackedWidget::onLayoutCurrentChanged ( int index ) {
@@ -128,6 +128,18 @@ QWidget *AnimatedStackedWidget::removeWidget ( QWidget *widget ) {
   this->layout ()->removeWidget ( widget );
   this->widgetList.removeAt ( index );
   return widget;
+}
+
+void AnimatedStackedWidget::setAnimationEnabled ( bool animationEnabled ) {
+
+  /*"""
+  Enable/disable transition animations.
+  """*/
+  if ( this->animationEnabled != animationEnabled ) {
+
+    this->animationEnabled = animationEnabled;
+  }
+  this->transitionAnimation->setDuration ( this->animationEnabled ? 100 : 0 );
 }
 
 void AnimatedStackedWidget::setCurrentIndex ( int index ) {
@@ -197,18 +209,6 @@ void AnimatedStackedWidget::setCurrentWidget ( QWidget *widget ) {
   this->setCurrentIndex ( index );
 }
 
-void AnimatedStackedWidget::setAnimationEnabled ( bool animationEnabled ) {
-
-  /*"""
-  Enable/disable transition animations.
-  """*/
-  if ( this->animationEnabled != animationEnabled ) {
-
-    this->animationEnabled = animationEnabled;
-  }
-  this->transitionAnimation->setDuration ( this->animationEnabled ? 100 : 0 );
-}
-
 QSize AnimatedStackedWidget::sizeHint () const {
 
   QSize hint = QFrame::sizeHint ();
@@ -235,6 +235,7 @@ void AnimatedStackedWidget::transitionStart () {
 QWidget *AnimatedStackedWidget::widget ( int index ) {
   /*"""
   Return the widget at `index`
+  AnimatedStackedWidget.obj:-1: error: LNK2001: unresolved external symbol "public: virtual struct QMetaObject const * __cdecl AnimatedStackedWidget::metaObject(void)const " (?metaObject@AnimatedStackedWidget@@UEBAPEBUQMetaObject@@XZ)
   """*/
   return this->widgetList.at ( index );
 }

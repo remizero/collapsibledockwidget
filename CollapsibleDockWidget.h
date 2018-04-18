@@ -20,18 +20,21 @@ class CollapsibleDockWidget : public QDockWidget {
     CollapsibleDockWidget ( const QString &title, QWidget *parent = Q_NULLPTR, Qt::WindowFlags flags = Qt::WindowFlags () );
     ~CollapsibleDockWidget ();
 
-    bool isAnimationEnabled ();
+    static const int QWIDGETSIZE_MAX_AUX = ( 1 << 24 );
+    static const int QWIDGETSIZE_MAX_1 = ( ( 1 << 24 ) - 1 );
+//C:\Users\fzaa\Documents\proyectos\Desarrollo\qt\collapsibledockwidget\CollapsibleDockWidget.h:24: error: C2059: syntax error: 'constant'
     void collapse ();
-    QWidget *getCollapsedWidget ();
     QWidget *currentWidget ();
     bool event ( QEvent *event ) Q_DECL_OVERRIDE;
     bool eventFilter ( QObject *watched, QEvent *event ) Q_DECL_OVERRIDE;
     void expand ();
-    bool isExpanded ();
     void fixIcon ();
     void fixMinimumWidth ();
-    bool isExpandedWidget ();
+    QWidget *getCollapsedWidget ();
     int hasFixedWidth ();
+    bool isAnimationEnabled ();
+    bool isExpanded ();
+    bool isExpandedWidget ();
     void setAnimationEnabled ( bool animationEnabled );
     void setCollapsedWidget ( QWidget *widget);
     void setExpanded ( bool expanded );
@@ -49,18 +52,15 @@ class CollapsibleDockWidget : public QDockWidget {
 
   private:
     //bool expandedWidget;
-
-       bool animationEnabled;
-    QWidget *collapsedWidget;
-       bool expanded;
-    QWidget *expandedWidget;
-      QIcon *iconLeft;
-      QIcon *iconRight;
-        int trueMinimumWidth;
-
+                     bool  animationEnabled;
+                  QWidget *collapsedWidget;
+                     bool  expanded;
+                  QWidget *expandedWidget;
+                    QIcon *iconLeft;
+                    QIcon *iconRight;
+                      int  trueMinimumWidth;
     AnimatedStackedWidget *stack;
-
-    QAbstractButton *closeButton;
+          QAbstractButton *closeButton;
 };
 
 #endif // COLLAPSIBLEDOCKWIDGET_H

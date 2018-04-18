@@ -31,8 +31,8 @@ class CrossFadePixmapWidget : public QWidget {
   public slots:
 
   private:
-    float blendingFactor;
-    float blendingFactor_;
+      float blendingFactor;
+      float blendingFactor_;
     QPixmap pixmap1;
     QPixmap pixmap2;
 };

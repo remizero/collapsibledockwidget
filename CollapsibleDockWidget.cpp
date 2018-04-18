@@ -1,5 +1,7 @@
 #include "CollapsibleDockWidget.h"
 
+#include <QDebug>
+
 CollapsibleDockWidget::CollapsibleDockWidget ( const QString &title, QWidget *parent, Qt::WindowFlags flags ) : QDockWidget ( title, parent, flags ) {
 
   //QDockWidget.__init__(self, *args, **kwargs)
@@ -12,10 +14,12 @@ CollapsibleDockWidget::CollapsibleDockWidget ( const QString &title, QWidget *pa
   this->setFeatures ( QDockWidget::DockWidgetClosable | QDockWidget::DockWidgetMovable );
   this->setAllowedAreas ( Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea );
 
-  connect ( this, SIGNAL ( featuresChanged ( QDockWidget::DockWidgetFeatures ) ), this, SLOT ( onDockLocationChanged ( Qt::DockWidgetArea ) ) );
-  connect ( this, SIGNAL ( dockLocationChanged ( Qt::DockWidgetArea ) ), this, SLOT ( onFeaturesChanged ( QDockWidget::DockWidgetFeatures ) ) );
+  //connect ( this, SIGNAL ( featuresChanged ( QDockWidget::DockWidgetFeatures ) ), this, SLOT ( onDockLocationChanged ( Qt::DockWidgetArea ) ) );
+  //connect ( this, SIGNAL ( dockLocationChanged ( Qt::DockWidgetArea ) ), this, SLOT ( onFeaturesChanged ( QDockWidget::DockWidgetFeatures ) ) );
   //this->featuresChanged.connect ( this->__onFeaturesChanged );
   //this->dockLocationChanged.connect ( this->__onDockLocationChanged );
+  connect ( this, SIGNAL ( dockLocationChanged ( Qt::DockWidgetArea ) ), this, SLOT ( onDockLocationChanged ( Qt::DockWidgetArea ) ) );
+  connect ( this, SIGNAL ( featuresChanged ( QDockWidget::DockWidgetFeatures ) ), this, SLOT ( onFeaturesChanged ( QDockWidget::DockWidgetFeatures ) ) );
 
   // Use the toolbar horizontal extension button icon as the default
   // for the expand/collapse button
@@ -39,7 +43,7 @@ CollapsibleDockWidget::CollapsibleDockWidget ( const QString &title, QWidget *pa
   this->stack = new AnimatedStackedWidget ();
   this->stack->setSizePolicy ( QSizePolicy::Fixed, QSizePolicy::Expanding );
   connect ( this->stack, SIGNAL ( transitionStarted () ), this, SLOT ( onTransitionStarted () ) );
-  connect ( this->stack, SIGNAL ( transitionFinished () ), this, SLOT ( onTransitionFinished ) );
+  connect ( this->stack, SIGNAL ( transitionFinished () ), this, SLOT ( onTransitionFinished () ) );
 
   QDockWidget::setWidget ( this->stack );
   this->closeButton->setIcon ( *this->iconLeft );
@@ -76,6 +80,7 @@ QWidget *CollapsibleDockWidget::currentWidget () {
 
 bool CollapsibleDockWidget::event ( QEvent *event ) {
 
+  qDebug () << event->type ();
   if ( event->type () == QEvent::LayoutRequest ) {
 
     this->fixMinimumWidth ();
@@ -156,11 +161,15 @@ void CollapsibleDockWidget::fixMinimumWidth () {
 //# minimumSizeHint or setting the minimum size directly does not
 //# seem to have an effect (Qt 4.8.3).
   QSize size = this->stack->sizeHint ();
+  qDebug () << "size.width () " << size.width ();
+  qDebug () << "size.height () " << size.height ();
   if ( size.isValid () && !size.isEmpty () ) {
 
     int left, top, right, botton;
     this->getContentsMargins ( &left, &top, &right, &botton );
     int width = size.width () + left + right;
+
+    qDebug () << "width " << width;
 
     if ( width < this->minimumSizeHint ().width () ) {
 
@@ -180,7 +189,7 @@ void CollapsibleDockWidget::fixMinimumWidth () {
                 log.debug("Restoring default minimum size "
                           "(setFixedWidth(%i))", QWIDGETSIZE_MAX)*/
           this->trueMinimumWidth = -1;
-          this->setFixedWidth ( QWIDGETSIZE_MAX );
+          this->setFixedWidth ( QWIDGETSIZE_MAX_1 );
           this->updateGeometry ();
 
         } else {
@@ -269,15 +278,15 @@ void CollapsibleDockWidget::setExpanded ( bool expanded ) {
   if ( this->expanded != expanded ) {
 
     this->expanded = expanded;
-    if ( expanded and this->expandedWidget != nullptr ) {
+    if ( expanded && ( this->expandedWidget != nullptr ) ) {
 
       //log.debug("Dock expanding.");
       this->stack->setCurrentWidget ( this->expandedWidget );
 
-    } else if ( !expanded and this->collapsedWidget != nullptr ) {
+    } else if ( !expanded && ( this->collapsedWidget != nullptr ) ) {
 
       //log.debug("Dock collapsing.");
-      this->stack->setCurrentWidget ( this->collapsedWidget);
+      this->stack->setCurrentWidget ( this->collapsedWidget );
     }
     this->fixIcon ();
     //this->expandedChanged.emit ( expanded );

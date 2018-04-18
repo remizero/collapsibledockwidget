@@ -8,8 +8,10 @@
 #include <QStackedLayout>
 #include <QWidget>
 
-class StackLayout : public QStackedLayout
-{
+class StackLayout : public QStackedLayout {
+
+    Q_OBJECT
+
   public:
     StackLayout ();
     StackLayout ( QWidget *parent );
@@ -32,7 +34,3 @@ class StackLayout : public QStackedLayout
 };
 
 #endif // STACKLAYOUT_H
-
-/**
- *
- */

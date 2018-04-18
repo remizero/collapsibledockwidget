@@ -12,21 +12,24 @@
 #include <QWidget>
 
 class AnimatedStackedWidget : public QFrame {
+
+    Q_OBJECT
+
   public:
     AnimatedStackedWidget ( bool animationEnabled = true, QWidget *parent = Q_NULLPTR, Qt::WindowFlags f = Qt::WindowFlags () );
     ~AnimatedStackedWidget ();
 
     QWidget *addWidget ( QWidget *widget );
-    bool isAnimationEnabled ();
     int count ();
     int getCurrentIndex ();
     bool hasPendingResize ( QWidget *widget );
     int indexOf ( QWidget *widget );
     QWidget *insertWidget ( int index, QWidget *widget );
+    bool isAnimationEnabled ();
     QWidget *removeWidget ( QWidget *widget );
+    void setAnimationEnabled ( bool animationEnabled );
     void setCurrentIndex ( int index );
     void setCurrentWidget ( QWidget *widget );
-    void setAnimationEnabled ( bool animationEnabled );
     QSize sizeHint () const Q_DECL_OVERRIDE;
     void transitionStart ();
     QWidget *widget ( int index );
@@ -44,13 +47,13 @@ class AnimatedStackedWidget : public QFrame {
     void transitionFinished ();
 
   private:
-    QPropertyAnimation *transitionAnimation;
-    StackLayout *stackLayout;
+                     bool  animationEnabled;
+                      int  currentIndex;
     CrossFadePixmapWidget *fadeWidget;
-    int currentIndex;
-    int nextCurrentIndex;
-    bool animationEnabled;
-    QList < QWidget *> widgetList;
+                      int  nextCurrentIndex;
+              StackLayout *stackLayout;
+       QPropertyAnimation *transitionAnimation;
+       QList < QWidget *>  widgetList;
 };
 
 #endif // ANIMATEDSTACKEDWIDGET_H

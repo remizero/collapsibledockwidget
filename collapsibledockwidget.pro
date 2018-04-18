@@ -28,10 +28,12 @@ SOURCES += main.cpp\
     CollapsibleDockWidget.cpp \
     AnimatedStackedWidget.cpp \
     StackLayout.cpp \
-    CrossFadePixmapWidget.cpp
+    CrossFadePixmapWidget.cpp \
+    QAutoHideDockWidgets.cpp
 
 HEADERS  += mainwindow.h \
     CollapsibleDockWidget.h \
     AnimatedStackedWidget.h \
     StackLayout.h \
-    CrossFadePixmapWidget.h
+    CrossFadePixmapWidget.h \
+    QAutoHideDockWidgets.h
