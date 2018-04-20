@@ -1,5 +1,7 @@
 #include "DockWidget.h"
 
+#include <QDebug>
+
 DockWidget::DockWidget ( const QString &title, QWidget *parent, Qt::WindowFlags flags ) : QDockWidget ( title, parent, flags ) {
 
   this->titleBar = new DockWidgetTitleBar ( this );
@@ -83,6 +85,7 @@ void DockWidget::setPinned ( bool flag ) {
 
 void DockWidget::setWidget ( QWidget *widget ) {
 
+  qDebug () << "Si esta entrando por el setWidget de la clase DockWidget";
   this->mainWidget = new DockMainWidgetWrapper ( this );
   this->mainWidget->setWidget ( widget );
   QDockWidget::setWidget ( this->mainWidget );

@@ -1,12 +1,14 @@
 #include "DockWidgetTitleBar.h"
 
+#include <QDebug>
+
 DockWidgetTitleBar::DockWidgetTitleBar ( QWidget *parent ) : QWidget ( parent ) {
 
   //import dockwidget_icons
 
-  this->openIcon = QIcon ( ":icons/arrow-down.png" );
-  this->closeIcon = QIcon ( ":icons/arrow-right.png" );
-  this->pinIcon = QIcon ( ":icons/pin.png" );
+  this->openIcon = QIcon ( ":/icons/arrow-down.svg" );
+  this->closeIcon = QIcon ( ":/icons/arrow-right.svg" );
+  this->pinIcon = QIcon ( ":/icons/pin.svg" );
   DockWidget *q = ( DockWidget * ) parent;
   this->floatButton = new DockWidgetTitleBarButton ( this );
   this->floatButton->setIcon ( q->style ()->standardIcon ( QStyle::SP_TitleBarNormalButton, nullptr, q ) );
@@ -18,6 +20,8 @@ DockWidgetTitleBar::DockWidgetTitleBar ( QWidget *parent ) : QWidget ( parent ) 
   this->closeButton->setVisible ( true );
   this->collapseButton = new DockWidgetTitleBarButton ( this );
   this->collapseButton->setIcon ( this->openIcon );
+  this->collapseButton->setToolTip ( "Collapse the DockWidget" );
+  this->collapseButton->setToolTipDuration ( 3000 );
   connect ( this->collapseButton, SIGNAL ( clicked () ), this, SLOT ( toggleCollapsed () ) );
   this->collapseButton->setVisible ( true );
   this->pinButton = new DockWidgetTitleBarButton ( this );
@@ -237,9 +241,11 @@ void DockWidgetTitleBar::togglePinned ( bool checked ) {
 
 void DockWidgetTitleBar::toggleCollapsed () {
 
+  qDebug () << "Está entrando por el toggleCollapsed de la clase DockWidgetTitleBar";
   DockWidget *q = ( DockWidget * ) this->parentWidget ();
-  if ( q ) {
+  if ( !q ) {
 
+    qDebug () << "Y como que está entrando por el if ( q ) {";
     return;
   }
   q->toggleCollapsed ();

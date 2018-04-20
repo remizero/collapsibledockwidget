@@ -2,7 +2,7 @@
 
 MainWindow::MainWindow ( QWidget *parent ) : QMainWindow ( parent ) {
 
-
+  Q_INIT_RESOURCE ( iconsresource );
   /**
    * Version 1
    * AnimatedStackedWidget.h
@@ -63,9 +63,6 @@ MainWindow::MainWindow ( QWidget *parent ) : QMainWindow ( parent ) {
   this->addDockWidget ( Qt::RightDockWidgetArea, dock2 );
   QTextEdit *edit = new QTextEdit ( this );
   this->setCentralWidget ( edit );
-
-
-
 }
 
 MainWindow::~MainWindow () {}
