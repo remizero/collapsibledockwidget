@@ -1,0 +1,26 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/arrow-right.svg</file>
+        <file>icons/Arrow.svg</file>
+        <file>icons/Back.svg</file>
+        <file>icons/default-category.svg</file>
+        <file>icons/default-widget.svg</file>
+        <file>icons/Document Info.svg</file>
+        <file>icons/Documentation.svg</file>
+        <file>icons/Dropdown.svg</file>
+        <file>icons/Get Started.svg</file>
+        <file>icons/Grid.svg</file>
+        <file>icons/Info.svg</file>
+        <file>icons/Maximize Toolbar.svg</file>
+        <file>icons/Minimize Toolbar.svg</file>
+        <file>icons/New.svg</file>
+        <file>icons/Open.svg</file>
+        <file>icons/orange-canvas.svg</file>
+        <file>icons/orange-splash-screen.png</file>
+        <file>icons/Pause.svg</file>
+        <file>icons/Recent.svg</file>
+        <file>icons/Search.svg</file>
+        <file>icons/Text Size.svg</file>
+        <file>icons/Tutorials.svg</file>
+    </qresource>
+</RCC>

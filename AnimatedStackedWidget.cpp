@@ -38,12 +38,7 @@ int AnimatedStackedWidget::count () {
   /*"""
   Return the number of widgets in the stack.
   """*/
-  int layoutCount = this->layout ()->count () - 1;
-  if ( layoutCount < 0 ) {
-
-    return 0;
-  }
-  return layoutCount;
+  return qMax ( this->layout ()->count () - 1, 0 );
 }
 
 int AnimatedStackedWidget::getCurrentIndex () {
@@ -71,11 +66,7 @@ QWidget *AnimatedStackedWidget::insertWidget ( int index, QWidget *widget ) {
   /*"""
   Insert `widget` into the stack at `index`.
   """*/
-  if ( this->count () < index ) {
-
-    index = this->count ();
-  }
-  //index = min ( index, this->count () );
+  index = qMin ( index, this->count () );
   this->widgetList.insert ( index, widget );
   if ( ( index <= this->currentIndex ) || ( this->currentIndex == -1 ) ) {
 
@@ -146,24 +137,7 @@ void AnimatedStackedWidget::setCurrentIndex ( int index ) {
   /*"""
   Set the current shown widget index.
   """*/
-  const int widgetCount = this->count () - 1;
-  if ( widgetCount < index ) {
-
-    if ( widgetCount > 0 ) {
-
-      index = widgetCount;
-
-    } else {
-
-      index = 0;
-    }
-  } else {
-
-    if ( 0 > index ) {
-
-      index = 0;
-    }
-  }
+  index = qMax ( qMin ( index, this->count () - 1 ), 0 );
   if ( this->currentIndex == -1 ) {
 
     ( ( QStackedLayout * ) this->layout () )->setCurrentIndex ( index );

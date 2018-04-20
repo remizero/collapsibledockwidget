@@ -47,6 +47,7 @@ CollapsibleDockWidget::CollapsibleDockWidget ( const QString &title, QWidget *pa
 
   QDockWidget::setWidget ( this->stack );
   this->closeButton->setIcon ( *this->iconLeft );
+  this->resize ( 300, 300 );
 }
 
 CollapsibleDockWidget::~CollapsibleDockWidget () {}
@@ -232,7 +233,7 @@ void CollapsibleDockWidget::onDockLocationChanged ( Qt::DockWidgetArea area ) {
 
 void CollapsibleDockWidget::onFeaturesChanged ( QDockWidget::DockWidgetFeatures features ) {
 
-
+  Q_UNUSED ( features )
 }
 
 void CollapsibleDockWidget::onTransitionFinished () {
@@ -321,6 +322,7 @@ void CollapsibleDockWidget::setExpandedWidget ( QWidget *widget ) {
 
 void CollapsibleDockWidget::setWidget ( QWidget *widget ) {
 
+  Q_UNUSED ( widget )
   /*raise NotImplementedError(
             "Please use the 'setExpandedWidget'/'setCollapsedWidget' "
             "methods to set the contents of the dock widget."

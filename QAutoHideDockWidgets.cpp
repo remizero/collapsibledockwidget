@@ -62,6 +62,7 @@ void QAutoHideDockWidgets::_dockWidgets () {
 
 void QAutoHideDockWidgets::paintEvent ( QPaintEvent *event ) {
 
+  Q_UNUSED ( event )
   /*p = QPainter ( this );
   p.setPen ( Qt::black );
   p.setBrush ( Qt::black );
@@ -79,6 +80,8 @@ void QAutoHideDockWidgets::paintEvent ( QPaintEvent *event ) {
 
 void QAutoHideDockWidgets::_multiSetVisible ( QWidget *widgets, bool state ) {
 
+  Q_UNUSED ( widgets )
+  Q_UNUSED ( state )
   /*if ( state ) {
 
     this->setVisible ( !state );
@@ -105,11 +108,14 @@ void QAutoHideDockWidgets::_multiSetVisible ( QWidget *widgets, bool state ) {
 
 void QAutoHideDockWidgets::enterEvent ( QEvent *event ) {
 
+  Q_UNUSED ( event )
   //this->showDockWidgets ();
 }
 
 bool QAutoHideDockWidgets::eventFilter ( QObject *obj, QEvent *event ) {
 
+  Q_UNUSED ( obj )
+  Q_UNUSED ( event )
   /*if ( event->type () == QEvent::Enter ) {
 
     assert obj == this->parent ().centralWidget ();
@@ -120,6 +126,7 @@ bool QAutoHideDockWidgets::eventFilter ( QObject *obj, QEvent *event ) {
 
 void QAutoHideDockWidgets::setDockWidgetsVisible ( bool state ) {
 
+  Q_UNUSED ( state )
   //this->_multiSetVisible ( list ( this->_dockWidgets () ), state );
 }
 

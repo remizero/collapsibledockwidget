@@ -29,11 +29,22 @@ SOURCES += main.cpp\
     AnimatedStackedWidget.cpp \
     StackLayout.cpp \
     CrossFadePixmapWidget.cpp \
-    QAutoHideDockWidgets.cpp
+    QAutoHideDockWidgets.cpp \
+    DockWidgetTitleBarButton.cpp \
+    DockWidgetTitleBar.cpp \
+    DockMainWidgetWrapper.cpp \
+    DockWidget.cpp
 
 HEADERS  += mainwindow.h \
     CollapsibleDockWidget.h \
     AnimatedStackedWidget.h \
     StackLayout.h \
     CrossFadePixmapWidget.h \
-    QAutoHideDockWidgets.h
+    QAutoHideDockWidgets.h \
+    DockWidgetTitleBarButton.h \
+    DockWidgetTitleBar.h \
+    DockMainWidgetWrapper.h \
+    DockWidget.h
+
+RESOURCES += \
+    iconsresource.qrc

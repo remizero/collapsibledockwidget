@@ -38,53 +38,20 @@ QSize StackLayout::fixSizePolicy ( QSize size, QSize hint, QSizePolicy policy ) 
 
   if ( expanding & Qt::Horizontal ) {
 
-    if ( width > size.width () ) {
-
-      width = width;
-
-    } else {
-
-      width = size.width ();
-    }
-    //width = max ( width, size.width () );
+    width = qMax ( width, size.width () );
   }
   if ( hpolicy == QSizePolicy::Maximum ) {
 
-    if ( width < size.width () ) {
-
-      width = width;
-
-    } else {
-
-      width = size.width ();
-    }
-    //width = min ( width, size.width () );
+    width = qMin ( width, size.width () );
   }
   if ( expanding & Qt::Vertical ) {
 
-    if ( height > size.height () ) {
-
-      height = height;
-
-    } else {
-
-      height = size.height ();
-    }
-    //height = max ( height, size.height () );
+    height = qMax ( height, size.height () );
   }
   if ( vpolicy == QSizePolicy::Maximum ) {
 
-    if ( height < size.height () ) {
-
-      height = height;
-
-    } else {
-
-      height = size.height ();
-    }
-    //height = min ( height, hint.height () );
+    height = qMin ( height, hint.height () );
   }
-
   return QSize ( width, height ).boundedTo ( size );
 }
 
@@ -122,6 +89,7 @@ QSize StackLayout::minimumSize () const {
 
 void StackLayout::onCurrentChanged ( int index ) {
 
+  Q_UNUSED ( index )
   /*"""
   Current widget changed, invalidate the layout.
   """*/
